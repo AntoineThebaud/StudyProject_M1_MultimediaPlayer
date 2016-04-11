@@ -16,19 +16,24 @@ import javax.swing.JPanel;
 import javax.swing.JSlider; 
 	 
 public class GUI extends JFrame {
-
+	
+  static int VHS = 105;
+  
   public GUI() {
 	  
     this.setTitle("Multimedia Player");
-    this.setMinimumSize(new Dimension(500, 105));
+    this.setMinimumSize(new Dimension(520, VHS));
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLocationRelativeTo(null);
     this.setLayout(new BorderLayout());
+    
+    //partie HAUTE : Menu
 
-    //partie GAUCHE : Boutons
+    //- GAUCHE : Boutons
     JPanel leftPanel = new JPanel();
     leftPanel.setLayout(new FlowLayout());
-    leftPanel.setPreferredSize(new Dimension(180, 100));
+    leftPanel.setPreferredSize(new Dimension(180, VHS));
+    leftPanel.setMinimumSize(new Dimension(180, VHS));
     leftPanel.add(new JButton("<"));
     leftPanel.add(new JButton("D"));
     leftPanel.add(new JButton(">"));
@@ -36,12 +41,14 @@ public class GUI extends JFrame {
     leftPanel.add(new JButton("[]"));
     leftPanel.add(new JButton(">>|"));
     
-    //partie CENTRAL : Slider + Tooltip + Boutons bottom-right
+    //- CENTRAL : Slider + Tooltip + Boutons bottom-right
     JPanel centralPanel = new JPanel();
+    centralPanel.setMinimumSize(new Dimension(180, VHS));
     centralPanel.setLayout(new BorderLayout());
     //- slider
+    JPanel sliderPanel = new JPanel();
     JSlider slider = new JSlider();
-    slider.setPreferredSize(new Dimension(150,150));
+    sliderPanel.add(slider, BorderLayout.NORTH);
     //- tooltip
     TextArea text = new TextArea("Multimedia Player\n<o==========================================>", 1, 45, TextArea.SCROLLBARS_NONE);
     text.setMinimumSize(new Dimension(120, 45));
@@ -52,26 +59,38 @@ public class GUI extends JFrame {
     rightButtons.add(new JButton("[_]"));
     
     centralPanel.add(text, BorderLayout.NORTH);
-    centralPanel.add(slider, BorderLayout.WEST);
+    centralPanel.add(sliderPanel, BorderLayout.WEST);
     centralPanel.add(rightButtons, BorderLayout.EAST);
     
-    //partie BAS : liste de lecture
-    JPanel bottomPanel = new JPanel();
-    bottomPanel.setVisible(true);
-    bottomPanel.setPreferredSize(new Dimension(500,150));
+    JPanel menu = new JPanel();
+    menu.setLayout(new BorderLayout());
+    menu.add(leftPanel, BorderLayout.WEST);
+    menu.add(centralPanel, BorderLayout.CENTER);
+    
+    //partie BASSE : liste de lecture
+    
+    JPanel playlist = new JPanel();
+    playlist.setVisible(true);
+    playlist.setPreferredSize(new Dimension(500,150));
+    playlist.setLayout(new BorderLayout());
+    playlist.add(new JButton("Some stuff"), BorderLayout.CENTER);
+    playlist.add(new JButton("Some stuff"), BorderLayout.NORTH);
+    playlist.add(new JButton("Some stuff"), BorderLayout.SOUTH);
+    playlist.add(new JButton("Some stuff"), BorderLayout.WEST);
+    playlist.add(new JButton("Some stuff"), BorderLayout.EAST);
     
     //assemblage de la fenêtre finale
-    this.getContentPane().add(leftPanel, BorderLayout.WEST);
-    this.getContentPane().add(centralPanel, BorderLayout.CENTER);
-    //this.getContentPane().add(bottomPanel, BorderLayout.SOUTH);
+    this.getContentPane().add(menu, BorderLayout.NORTH);
+    this.getContentPane().add(playlist, BorderLayout.SOUTH);
     
+    //TODO : à décommenter 
     //Listener : redimensionnement
-    this.addComponentListener(new ComponentAdapter() {
-        @Override
-        public void componentResized(ComponentEvent e) {
-            setSize(new Dimension(getWidth(), 105));
-        }
-    });
+//    this.addComponentListener(new ComponentAdapter() {
+//        @Override
+//        public void componentResized(ComponentEvent e) {
+//            setSize(new Dimension(getWidth(), 105));
+//        }
+//    });
 
     this.setVisible(true);
     this.pack();
