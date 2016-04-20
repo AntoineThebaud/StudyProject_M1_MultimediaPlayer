@@ -13,18 +13,21 @@ import java.awt.event.ComponentEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSlider;
+import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.JTextPane; 
+import javax.swing.JTextPane;
+import javax.swing.table.TableColumn; 
 	 
 public class GUI extends JFrame {
 	
-  static int VHS = 105;
+  static int vertSize = 105;
   
   public GUI() {
 	  
     this.setTitle("Multimedia Player");
-    this.setMinimumSize(new Dimension(520, VHS));
+    this.setMinimumSize(new Dimension(520, vertSize));
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLocationRelativeTo(null);
     this.setLayout(new BorderLayout());
@@ -34,8 +37,8 @@ public class GUI extends JFrame {
     //- GAUCHE : Boutons
     JPanel lvl2_LeftPanel = new JPanel();
     lvl2_LeftPanel.setLayout(new FlowLayout());
-    lvl2_LeftPanel.setPreferredSize(new Dimension(180, VHS));
-    lvl2_LeftPanel.setMinimumSize(new Dimension(180, VHS));
+    lvl2_LeftPanel.setPreferredSize(new Dimension(180, vertSize));
+    lvl2_LeftPanel.setMinimumSize(new Dimension(180, vertSize));
     lvl2_LeftPanel.add(new JButton("<"));
     lvl2_LeftPanel.add(new JButton("D"));
     lvl2_LeftPanel.add(new JButton(">"));
@@ -45,7 +48,7 @@ public class GUI extends JFrame {
     
     //- CENTRAL : Slider + Tooltip + Boutons bottom-right
     JPanel lvl2_CentralPanel = new JPanel();
-    lvl2_CentralPanel.setMinimumSize(new Dimension(180, VHS));
+    lvl2_CentralPanel.setMinimumSize(new Dimension(180, vertSize));
     lvl2_CentralPanel.setLayout(new BorderLayout());
     //- slider
     JPanel lvl3_sliderPanel = new JPanel();
@@ -93,15 +96,35 @@ public class GUI extends JFrame {
     lvl2_BottomPlaylist.add(lvl3_BottomSearchBar, BorderLayout.EAST);
     lvl2_BottomPlaylist.add(lvl3_BottomText, BorderLayout.CENTER);
     
+    //- CENTRAL : table
+    String[] entetes = {"Nom", "Auteur", "Durée"};
+    Object[][] donnees = {
+            {"AC_DC", "   ",  "   "},
+            {"   Black Ice", "   ",  "   "},
+            {"      Rock 'N Roll Train", "AC/DC",  "04:21"},
+            {"      Skies On Fire", "AC/DC",  "04:21"},
+            {"      Big Jack", "AC/DC",  "04:21"},
+            {"      Anything Goes", "AC/DC",  "04:21"},
+            {"      War Machine", "AC/DC",  "04:21"},
+            {"      Smash 'N Grab", "AC/DC",  "04:21"},
+            {"      Spoilin' For A Fight", "AC/DC",  "04:21"},
+            {"      Wheels", "AC/DC",  "04:21"},
+    };
+    JTable lvl2_table = new JTable(donnees, entetes);
+	// Display
+    lvl2_table.setFillsViewportHeight(true);
+    lvl2_table.getColumnModel().getColumn(0).setPreferredWidth(400);
+	lvl2_table.getColumnModel().getColumn(1).setPreferredWidth(45);
+	lvl2_table.getColumnModel().getColumn(1).setMinWidth(45);
+	lvl2_table.getColumnModel().getColumn(2).setPreferredWidth(40);
+	lvl2_table.getColumnModel().getColumn(2).setMinWidth(40);
+    
     JPanel lvl1_Playlist = new JPanel();
     lvl1_Playlist.setVisible(true);
     lvl1_Playlist.setPreferredSize(new Dimension(500,150));
     lvl1_Playlist.setLayout(new BorderLayout());
-    lvl1_Playlist.add(new JButton("Some stuff"), BorderLayout.CENTER);
-    lvl1_Playlist.add(new JButton("Some stuff"), BorderLayout.NORTH);
+    lvl1_Playlist.add(new JScrollPane(lvl2_table), BorderLayout.CENTER);
     lvl1_Playlist.add(lvl2_BottomPlaylist, BorderLayout.SOUTH);
-    lvl1_Playlist.add(new JButton("Some stuff"), BorderLayout.WEST);
-    lvl1_Playlist.add(new JButton("Some stuff"), BorderLayout.EAST);
     
     //assemblage de la fenêtre finale
     this.getContentPane().add(lvl1_Menu, BorderLayout.NORTH);
@@ -112,7 +135,7 @@ public class GUI extends JFrame {
 //    this.addComponentListener(new ComponentAdapter() {
 //        @Override
 //        public void componentResized(ComponentEvent e) {
-//            setSize(new Dimension(getWidth(), 105));
+//            setSize(new Dimension(getWidth(), VHS));
 //        }
 //    });
 
