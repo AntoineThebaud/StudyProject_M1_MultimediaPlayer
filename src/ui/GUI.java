@@ -13,7 +13,9 @@ import java.awt.event.ComponentEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JSlider; 
+import javax.swing.JSlider;
+import javax.swing.JTextField;
+import javax.swing.JTextPane; 
 	 
 public class GUI extends JFrame {
 	
@@ -30,58 +32,80 @@ public class GUI extends JFrame {
     //partie HAUTE : Menu
 
     //- GAUCHE : Boutons
-    JPanel leftPanel = new JPanel();
-    leftPanel.setLayout(new FlowLayout());
-    leftPanel.setPreferredSize(new Dimension(180, VHS));
-    leftPanel.setMinimumSize(new Dimension(180, VHS));
-    leftPanel.add(new JButton("<"));
-    leftPanel.add(new JButton("D"));
-    leftPanel.add(new JButton(">"));
-    leftPanel.add(new JButton("|<<"));
-    leftPanel.add(new JButton("[]"));
-    leftPanel.add(new JButton(">>|"));
+    JPanel lvl2_LeftPanel = new JPanel();
+    lvl2_LeftPanel.setLayout(new FlowLayout());
+    lvl2_LeftPanel.setPreferredSize(new Dimension(180, VHS));
+    lvl2_LeftPanel.setMinimumSize(new Dimension(180, VHS));
+    lvl2_LeftPanel.add(new JButton("<"));
+    lvl2_LeftPanel.add(new JButton("D"));
+    lvl2_LeftPanel.add(new JButton(">"));
+    lvl2_LeftPanel.add(new JButton("|<<"));
+    lvl2_LeftPanel.add(new JButton("[]"));
+    lvl2_LeftPanel.add(new JButton(">>|"));
     
     //- CENTRAL : Slider + Tooltip + Boutons bottom-right
-    JPanel centralPanel = new JPanel();
-    centralPanel.setMinimumSize(new Dimension(180, VHS));
-    centralPanel.setLayout(new BorderLayout());
+    JPanel lvl2_CentralPanel = new JPanel();
+    lvl2_CentralPanel.setMinimumSize(new Dimension(180, VHS));
+    lvl2_CentralPanel.setLayout(new BorderLayout());
     //- slider
-    JPanel sliderPanel = new JPanel();
-    JSlider slider = new JSlider();
-    sliderPanel.add(slider, BorderLayout.NORTH);
+    JPanel lvl3_sliderPanel = new JPanel();
+    JSlider lvl4_slider = new JSlider();
+    lvl3_sliderPanel.add(lvl4_slider, BorderLayout.NORTH);
     //- tooltip
-    TextArea text = new TextArea("Multimedia Player\n<o==========================================>", 1, 45, TextArea.SCROLLBARS_NONE);
-    text.setMinimumSize(new Dimension(120, 45));
+    TextArea lvl3_text = new TextArea("Multimedia Player\n<o==========================================>", 1, 45, TextArea.SCROLLBARS_NONE);
+    lvl3_text.setMinimumSize(new Dimension(120, 45));
     // - boutons
-    JPanel rightButtons = new JPanel();
-    rightButtons.setLayout(new FlowLayout());
-    rightButtons.add(new JButton("|||"));
-    rightButtons.add(new JButton("[_]"));
+    JPanel lvl3_rightButtons = new JPanel();
+    lvl3_rightButtons.setLayout(new FlowLayout());
+    lvl3_rightButtons.add(new JButton("|||"));
+    lvl3_rightButtons.add(new JButton("[_]"));
     
-    centralPanel.add(text, BorderLayout.NORTH);
-    centralPanel.add(sliderPanel, BorderLayout.WEST);
-    centralPanel.add(rightButtons, BorderLayout.EAST);
+    lvl2_CentralPanel.add(lvl3_text, BorderLayout.NORTH);
+    lvl2_CentralPanel.add(lvl3_sliderPanel, BorderLayout.WEST);
+    lvl2_CentralPanel.add(lvl3_rightButtons, BorderLayout.EAST);
     
-    JPanel menu = new JPanel();
-    menu.setLayout(new BorderLayout());
-    menu.add(leftPanel, BorderLayout.WEST);
-    menu.add(centralPanel, BorderLayout.CENTER);
+    JPanel lvl1_Menu = new JPanel();
+    lvl1_Menu.setLayout(new BorderLayout());
+    lvl1_Menu.add(lvl2_LeftPanel, BorderLayout.WEST);
+    lvl1_Menu.add(lvl2_CentralPanel, BorderLayout.CENTER);
     
     //partie BASSE : liste de lecture
     
-    JPanel playlist = new JPanel();
-    playlist.setVisible(true);
-    playlist.setPreferredSize(new Dimension(500,150));
-    playlist.setLayout(new BorderLayout());
-    playlist.add(new JButton("Some stuff"), BorderLayout.CENTER);
-    playlist.add(new JButton("Some stuff"), BorderLayout.NORTH);
-    playlist.add(new JButton("Some stuff"), BorderLayout.SOUTH);
-    playlist.add(new JButton("Some stuff"), BorderLayout.WEST);
-    playlist.add(new JButton("Some stuff"), BorderLayout.EAST);
+    //- BAS : Boutons à gauche, barre de recherche à droite
+    //- boutons gauche
+    JPanel lvl3_BottomLeftButtons = new JPanel();
+    lvl3_BottomLeftButtons.setLayout(new FlowLayout());
+    lvl3_BottomLeftButtons.add(new JButton(" + "));
+    lvl3_BottomLeftButtons.add(new JButton("~~>"));
+    lvl3_BottomLeftButtons.add(new JButton("->-<-"));
+    //- barre de recherche
+    JTextField lvl3_BottomSearchBar = new JTextField(" search ...");
+    lvl3_BottomSearchBar.setPreferredSize(new Dimension(180, 8));
+    //- texte central
+    JTextField lvl3_BottomText = new JTextField("15 éléments");
+    lvl3_BottomText.setHorizontalAlignment(JTextField.CENTER);
+    lvl3_BottomText.setEditable(false);
+    lvl3_BottomSearchBar.setMaximumSize(new Dimension(70, 8));
+    
+    JPanel lvl2_BottomPlaylist = new JPanel();
+    lvl2_BottomPlaylist.setLayout(new BorderLayout());
+    lvl2_BottomPlaylist.add(lvl3_BottomLeftButtons, BorderLayout.WEST);
+    lvl2_BottomPlaylist.add(lvl3_BottomSearchBar, BorderLayout.EAST);
+    lvl2_BottomPlaylist.add(lvl3_BottomText, BorderLayout.CENTER);
+    
+    JPanel lvl1_Playlist = new JPanel();
+    lvl1_Playlist.setVisible(true);
+    lvl1_Playlist.setPreferredSize(new Dimension(500,150));
+    lvl1_Playlist.setLayout(new BorderLayout());
+    lvl1_Playlist.add(new JButton("Some stuff"), BorderLayout.CENTER);
+    lvl1_Playlist.add(new JButton("Some stuff"), BorderLayout.NORTH);
+    lvl1_Playlist.add(lvl2_BottomPlaylist, BorderLayout.SOUTH);
+    lvl1_Playlist.add(new JButton("Some stuff"), BorderLayout.WEST);
+    lvl1_Playlist.add(new JButton("Some stuff"), BorderLayout.EAST);
     
     //assemblage de la fenêtre finale
-    this.getContentPane().add(menu, BorderLayout.NORTH);
-    this.getContentPane().add(playlist, BorderLayout.SOUTH);
+    this.getContentPane().add(lvl1_Menu, BorderLayout.NORTH);
+    this.getContentPane().add(lvl1_Playlist, BorderLayout.CENTER);
     
     //TODO : à décommenter 
     //Listener : redimensionnement
@@ -99,15 +123,15 @@ public class GUI extends JFrame {
   //dans le constructeur :
   //this.addComponentListener(new GUIListener(this));
   
-  public class GUIListener extends ComponentAdapter {
-	
-	GUI g;
-	public GUIListener(GUI g) {
-		this.g = g;
-	}
-	@Override
-    public void componentResized(ComponentEvent e) {
-		g.setSize(new Dimension(g.getWidth(), 100));
-    }
-  }
+//  public class GUIListener extends ComponentAdapter {
+//	
+//	GUI g;
+//	public GUIListener(GUI g) {
+//		this.g = g;
+//	}
+//	@Override
+//    public void componentResized(ComponentEvent e) {
+//		g.setSize(new Dimension(g.getWidth(), 100));
+//    }
+//  }
 }
