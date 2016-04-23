@@ -64,12 +64,12 @@ public class GUI extends JFrame {
     JPanel lvl3_rightButtons = new JPanel();
     lvl3_rightButtons.setLayout(new FlowLayout());
     lvl3_rightButtons.add(new JButton("|||"));
+    //(bouton affichage playlist)
     JButton BtShowPlaylist = new JButton("[_]");
     BtShowPlaylist.addActionListener(new ActionListener() {
     	Color cliqued = new Color(163, 184, 204);
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			
 			if(BtShowPlaylist.getBackground().equals(cliqued)) {
 				BtShowPlaylist.setBackground(null);
 				setSize(new Dimension(getWidth(), MVS));
@@ -148,8 +148,7 @@ public class GUI extends JFrame {
     this.getContentPane().add(lvl1_Menu, BorderLayout.NORTH);
     this.getContentPane().add(lvl1_Playlist, BorderLayout.CENTER);
     
-//    TODO : à décommenter 
-//    Listener : redimensionnement
+    // Listener : redimensionnement
     this.addComponentListener(new ComponentAdapter() {
         @Override
         public void componentResized(ComponentEvent e) {
